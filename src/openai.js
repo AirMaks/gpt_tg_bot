@@ -15,13 +15,12 @@ class OpenAI {
     }
 
     async chat(messages) {
-        console.log(messages);
         try {
             const response = await this.openai.createChatCompletion({
                 model: "gpt-3.5-turbo",
                 messages
             });
-            return response.data.choices[0].message;
+            return response?.data?.choices?.[0]?.message;
         } catch (e) {
             console.log("Error while chat", e.message);
         }
@@ -30,7 +29,7 @@ class OpenAI {
     async transcription(filepath) {
         try {
             const response = await this.openai.createTranscription(createReadStream(filepath), "whisper-1");
-            return response.data.text;
+            return response?.data?.text;
         } catch (e) {
             console.log("Error while transcription", e.message);
         }
